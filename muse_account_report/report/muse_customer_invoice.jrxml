@@ -386,7 +386,9 @@ DELIVERY ADVICE / INVOICE]]></text>
 Term]]></text>
 			</staticText>
 			<rectangle radius="0">
-				<reportElement mode="Transparent" x="0" y="110" width="329" height="132"/>
+				<reportElement mode="Transparent" x="0" y="107" width="329" height="135">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 			</rectangle>
 			<staticText>
 				<reportElement x="6" y="142" width="46" height="44"/>
@@ -427,7 +429,10 @@ Sales man No.]]></text>
 Date]]></text>
 			</staticText>
 			<rectangle radius="0">
-				<reportElement mode="Transparent" x="332" y="110" width="239" height="132"/>
+				<reportElement mode="Transparent" x="332" y="107" width="239" height="135">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 			</rectangle>
 			<staticText>
 				<reportElement x="338" y="157" width="66" height="30"/>
