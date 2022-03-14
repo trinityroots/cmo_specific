@@ -1283,7 +1283,7 @@ class CostControlSheetReportXls(report_xls):
              '(%s)' % department.manager_id.display_name, None,
              cell_center_style),
             ('space_2', 1, 0, 'text', None),
-            ('signature_text_2', 2, 0, 'text', '(Sermkhun Kunawong)', None,
+            ('signature_text_2', 2, 0, 'text', '(Chatchaval Teened)', None,
              cell_center_style),
         ]
         row_data = self.xls_row_template(
