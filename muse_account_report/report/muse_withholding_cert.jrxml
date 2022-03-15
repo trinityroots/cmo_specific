@@ -210,9 +210,6 @@
 			<rectangle radius="5">
 				<reportElement x="0" y="245" width="572" height="41"/>
 			</rectangle>
-			<rectangle radius="5">
-				<reportElement isPrintRepeatedValues="false" mode="Transparent" x="0" y="138" width="572" height="104"/>
-			</rectangle>
 			<staticText>
 				<reportElement x="29" y="224" width="524" height="19"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
@@ -851,6 +848,13 @@ $F{type_6_tax}:null]]></textFieldExpression>
 				</textElement>
 				<textFieldExpression class="java.lang.Number"><![CDATA[$F{type_4a_tax}/$F{type_4a_base}]]></textFieldExpression>
 			</textField>
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="0" y="138" width="572" height="104">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
 		</band>
 	</pageHeader>
 </jasperReport>
