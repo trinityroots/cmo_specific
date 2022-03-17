@@ -659,7 +659,7 @@ Amount]]></text>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{allocation_amount}==null?
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{allocation_amount}==null?
 0 :$F{line_type}=="dr"?
 (-1) * $V{allocation_amount}:
 $V{allocation_amount}]]></textFieldExpression>
@@ -670,7 +670,7 @@ $V{allocation_amount}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{UniqueID_COUNT}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{UniqueID_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="52" y="0" width="390" height="25" forecolor="#000000" backcolor="#FFFFFF">
@@ -690,7 +690,7 @@ $V{allocation_amount}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{amount_untaxed}==null?
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{amount_untaxed}==null?
 0 : $F{line_type}=="dr"?
 (-1) * $V{amount_untaxed} :
 $V{amount_untaxed}]]></textFieldExpression>
@@ -723,7 +723,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{sum_allocation_amount_untax}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{sum_allocation_amount_untax}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="442" y="74" width="130" height="31" forecolor="#000000" backcolor="#FFFFFF">
@@ -733,7 +733,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{sum_allocation_amount}-$V{sum_allocation_amount_untax}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{sum_allocation_amount}-$V{sum_allocation_amount_untax}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="442" y="105" width="130" height="31" forecolor="#000000" backcolor="#FFFFFF">
@@ -743,7 +743,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{sum_allocation_amount}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{sum_allocation_amount}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="0" y="105" width="317" height="31" isPrintWhenDetailOverflows="true"/>
@@ -771,7 +771,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_amount_untaxed} != null ? $V{total_amount_untaxed} : 0]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{total_amount_untaxed} != null ? $V{total_amount_untaxed} : 0]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="442" y="74" width="130" height="31" forecolor="#000000" backcolor="#FFFFFF">
@@ -781,7 +781,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_amount_tax} != null ? $V{total_amount_tax} : 0]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{total_amount_tax} != null ? $V{total_amount_tax} : 0]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
 				<reportElement mode="Transparent" x="442" y="105" width="130" height="31" forecolor="#000000" backcolor="#FFFFFF">
@@ -791,7 +791,7 @@ $V{amount_untaxed}]]></textFieldExpression>
 				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{total_amount} != null ? $V{total_amount} : 0]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Number"><![CDATA[$V{total_amount} != null ? $V{total_amount} : 0]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
