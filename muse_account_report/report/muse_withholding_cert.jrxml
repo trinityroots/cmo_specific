@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 4.0.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="muse_withholding_cert" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10">
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
@@ -106,7 +107,7 @@
 		<band height="770" splitType="Immediate">
 			<staticText>
 				<reportElement x="142" y="-11" width="265" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[หนังสือรับรองการหักภาษี ณ ที่จ่าย
@@ -114,14 +115,14 @@
 			</staticText>
 			<staticText>
 				<reportElement x="407" y="-1" width="102" height="20"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เล่มที่/เลขที่]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="462" y="-1" width="132" height="20"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{number}]]></textFieldExpression>
@@ -131,35 +132,35 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="6" y="31" width="189" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผู้มีหน้าที่หักภาษี ณ ที่จ่าย :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="312" y="31" width="156" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" isBold="false" isItalic="false" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เลขประจำตัวประชาชน]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="312" y="58" width="198" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="77" width="273" height="19"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(กรอกเฉพาะกรณีเป็นผู้ไม่มีเลขประจำตัวประชาชน)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="6" y="65" width="100" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ชื่อ]]></text>
@@ -173,21 +174,21 @@
 			</textField>
 			<staticText>
 				<reportElement x="29" y="85" width="399" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(ให้ระบุว่าเป็น บุคคล นิติบุคคล บริษัท สมาคม หรือคณะบุคคล)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="29" y="116" width="524" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(ให้ระบุ เลขที่ ตรอก/ซอย หมู่ที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด และ โทรศัพท์)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="6" y="104" width="100" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ที่อยู่]]></text>
@@ -209,12 +210,9 @@
 			<rectangle radius="5">
 				<reportElement x="0" y="245" width="572" height="41"/>
 			</rectangle>
-			<rectangle radius="5">
-				<reportElement mode="Transparent" x="0" y="138" width="572" height="104"/>
-			</rectangle>
 			<staticText>
 				<reportElement x="29" y="224" width="524" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(ให้ระบุ เลขที่ ตรอก/ซอย หมู่ที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด และ โทรศัพท์)]]></text>
@@ -228,7 +226,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="6" y="139" width="189" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผู้ถูกหักภาษี ณ ที่จ่าย :]]></text>
@@ -242,56 +240,58 @@
 			</textField>
 			<staticText>
 				<reportElement x="375" y="185" width="273" height="19"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(กรอกเฉพาะกรณีเป็นผู้ไม่มีเลขประจำตัวประชาชน)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="312" y="139" width="156" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" isBold="false" isItalic="false" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เลขประจำตัวประชาชน]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="6" y="205" width="100" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ที่อยู่]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="312" y="166" width="198" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="312" y="159" width="198" height="20">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เลขประจำตัวผู้เสียภาษีอากร]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="29" y="193" width="399" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[(ให้ระบุว่าเป็น บุคคล นิติบุคคล บริษัท สมาคม หรือคณะบุคคล)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="173" width="100" height="19"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="7" y="159" width="18" height="19"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ชื่อ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement x="43" y="173" width="353" height="20"/>
-				<textElement verticalAlignment="Middle" lineSpacing="Single">
+				<reportElement x="25" y="159" width="286" height="40" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top" lineSpacing="Single">
 					<font fontName="SansSerif" size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{supplier_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="140" y="250" width="393" height="75"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[.....(1) ภ.ง.ด. 1 ก     .....(2) ภ.ง.ด. 1 ก พิเศษ     .....(3) ภ.ง.ด. 2     .....(4) ภ.ง.ด. 3
@@ -313,7 +313,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="6" y="250" width="175" height="17"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ลำดับที่ ......... ในแบบ]]></text>
@@ -335,21 +335,21 @@
 			</rectangle>
 			<staticText>
 				<reportElement x="418" y="286" width="84" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[จำนวนเงินที่จ่าย]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="286" width="290" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ประเภทเงินได้พึงประเมิน]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="502" y="286" width="70" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ภาษีหัก
@@ -358,7 +358,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="330" y="286" width="88" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[วัน เดือน
@@ -366,7 +366,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="290" y="286" width="40" height="38"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[อัตรา]]></text>
@@ -388,7 +388,7 @@
 			</rectangle>
 			<staticText>
 				<reportElement mode="Transparent" x="3" y="329" width="692" height="275"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[1. เงินเดือน ค่าจ้าง เบี้ยเลี้ยง โบนัส ฯลฯ ตามมาตรา 40 (1)
@@ -691,7 +691,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			<staticText>
 				<reportElement x="219" y="601" width="198" height="20"/>
 				<box rightPadding="3"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[รวมเงินทีจ่ายและภาษีทีหักนําส่ง]]></text>
@@ -718,7 +718,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="4" y="620" width="197" height="20"/>
-				<textElement verticalAlignment="Middle" rotation="None">
+				<textElement verticalAlignment="Middle" rotation="None" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[รวมเงินภาษีทีหักนําส่ง (ตัวอักษร)]]></text>
@@ -735,7 +735,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</rectangle>
 			<staticText>
 				<reportElement x="-101" y="643" width="775" height="62"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[( ) เงินสะสมจ่ายเข้ากองทุนสํารองเลี้ยงชีพใบอนุญาตเลขที่.................................... จำนวนเงิน...........................................บาท
@@ -743,7 +743,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</staticText>
 			<staticText>
 				<reportElement x="-99" y="671" width="775" height="31"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[เลขที่บัญชีนายจ้าง                                                        เลขที่บัตรประกันสังคม ของผู้ถูกหักภาษี ณ ที่จ่าย]]></text>
@@ -762,7 +762,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</rectangle>
 			<staticText>
 				<reportElement x="2" y="698" width="197" height="72"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ผู้จ่ายเงิน
@@ -798,7 +798,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</ellipse>
 			<staticText>
 				<reportElement x="425" y="714" width="100" height="54"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ประทับตรา
@@ -821,7 +821,7 @@ $F{type_6_tax}:null]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="162" y="714" width="472" height="45"/>
-				<textElement>
+				<textElement lineSpacing="Single">
 					<font size="12" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
 				<text><![CDATA[ขอรับรองว่าข้อความและตัวเลขดังกล่าวข้างต้นถูกต้องตรงกับความจริงทุกประการ
@@ -848,6 +848,13 @@ $F{type_6_tax}:null]]></textFieldExpression>
 				</textElement>
 				<textFieldExpression class="java.lang.Number"><![CDATA[$F{type_4a_tax}/$F{type_4a_base}]]></textFieldExpression>
 			</textField>
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="0" y="138" width="572" height="104">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
 		</band>
 	</pageHeader>
 </jasperReport>
