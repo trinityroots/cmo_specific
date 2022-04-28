@@ -316,6 +316,10 @@ class ProjectProject(models.Model):
     is_group_afreport = fields.Boolean(
         compute='_compute_is_group_afreport',
     )
+    approve_id = fields.Many2one(
+        'res.users',
+        string='Cost Control Approver',
+    )
 
     # @api.model
     # def fields_view_get(self, view_id=None, view_type='form',
