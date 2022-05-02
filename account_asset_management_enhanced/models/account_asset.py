@@ -84,6 +84,7 @@ class AccountAsset(models.Model):
         readonly=True,
     )
 
+    @api.model
     def manual_close_asset(self, num_list):
         if num_list:
             Asset = self.env['account.asset']
