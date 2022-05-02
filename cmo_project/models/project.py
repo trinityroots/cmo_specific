@@ -338,6 +338,21 @@ class ProjectProject(models.Model):
     #     return res
 
     @api.multi
+    @api.constrains('code')
+    def _check_code(self):
+        for rec in self:
+            count_code = self.env['project.project'].search_count([
+                ('code', '=', rec.code)
+            ])
+            if count_code:
+                raise UserError(
+                    _(
+                        "This project code is already exist!. " 
+                        "Please recheck tbe analytic account reference."
+                    )
+                )
+
+    @api.multi
     def action_ignore_so(self):
         for rec in self:
             rec.with_context({'ignore_so': True})._compute_price_and_cost()
