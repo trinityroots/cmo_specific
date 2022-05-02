@@ -92,16 +92,15 @@ class AccountAsset(models.Model):
             assets = Asset.search([
                 ('number', 'in', num_list),
             ])
-            if assets:
+            for asset in assets:
                 lines = AssetLine.search([
-                    ('asset_id', 'in', assets._ids),
+                    ('asset_id', '=', asset.id),
                     ('init_entry', '=', False),
                     ('move_check', '=', False),
                 ])
                 lines.create_move()
-                assets.write({
-                    'state': 'close'
-                })
+                asset.state = 'close'
+                self._cr.commit()
         return True
 
     @api.multi
