@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import fields, models, api, _
 from openerp.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountAsset(models.Model):
@@ -101,6 +104,7 @@ class AccountAsset(models.Model):
                 lines.create_move()
                 asset.state = 'close'
                 self._cr.commit()
+                _logger.warning(asset.number)
         return True
 
     @api.multi
