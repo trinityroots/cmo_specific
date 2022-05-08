@@ -12,6 +12,7 @@ class ProjectProject(models.Model):
     _order = "date_start desc"
 
     code = fields.Char(
+        string='Project Number',
         related='analytic_account_id.code',
         store=True,
         help="For project.project, no default, and do sequence when created"
