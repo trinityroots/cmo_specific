@@ -315,13 +315,14 @@ class ProjectProject(models.Model):
     )
     is_group_afreport = fields.Boolean(
         compute='_compute_is_group_afreport',
-    )]
+    )
     approve_id = fields.Many2one(
         'res.users',
-        string='Cost Control Approver',]
+        string='Cost Control Approver',
+    )
     date_sale_modify = fields.Datetime(
         string='Last Selling Updated',
-        copy=False,]
+        copy=False,
     )
 
     # @api.model
