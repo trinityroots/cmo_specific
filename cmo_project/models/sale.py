@@ -13,10 +13,10 @@ class SaleOrder(models.Model):
     #     for order in self:
     #         if order.project_related_id:
     #             project_id = order.project_related_id
-    #             project_id.date_last_modify = fields.datetime.now()
+    #             project_id.date_last_modify = fields.Datetime.now()
     #     return res
 
     @api.onchange('state', 'amount_total')
     def _onchange_project_track(self):
         if self.project_related_id:
-            self.project_related_id.date_last_modify = fields.datetime.now()
+            self.project_related_id.date_last_modify = fields.Datetime.now()
