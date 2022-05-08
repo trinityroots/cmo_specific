@@ -5,6 +5,7 @@ from openerp import fields, models, api
 
 _logger = logging.getLogger(__name__)
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -15,8 +16,9 @@ class SaleOrder(models.Model):
         for order in self:
             if order.project_related_id:
                 project_id = order.project_related_id
-                project_id.date_sale_modify = fields.Datetime.now()
-                _logger.warning(project_id.date_sale_modify)
+                project_id.write({
+                    'date_sale_modify': fields.Datetime.now()
+                })
         return res
 
     @api.onchange('state', 'amount_total')
