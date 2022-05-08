@@ -84,7 +84,7 @@ class AccountTrailBalanceReport(models.Model):
         domain = [('account_id', '=', account.id),
                   '|', ('journal_id.centralisation', '=', True),
                   '&', ('journal_id.centralisation', '=', False),
-                  ('date', '<', report.date_start),
+                  ('date', '<=', report.date_start),
                   ('period_id.fiscalyear_id', '=', report.fiscalyear_id.id)]
         if charge_type:
             domain += [('charge_type', '=', charge_type)]
