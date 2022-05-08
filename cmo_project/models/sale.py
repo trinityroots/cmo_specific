@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import logging
 from openerp import fields, models, api
-
-_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -23,7 +20,5 @@ class SaleOrder(models.Model):
 
     @api.onchange('state', 'amount_total')
     def _onchange_project_track(self):
-        _logger.warning(self.project_related_id)
         if self.project_related_id:
             self.project_related_id.date_sale_modify = fields.Datetime.now()
-            _logger.warning(self.project_related_id.date_sale_modify)
