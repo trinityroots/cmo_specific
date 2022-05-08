@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # from lxml import etree
 from openerp import fields, models, api, _
-from openerp.exceptions import ValidationError, UserError
+from openerp.exceptions import ValidationError
 from openerp.tools import float_compare
 
 # TODO: foreign key use, idex and ondelete
@@ -353,9 +353,9 @@ class ProjectProject(models.Model):
                 ('code', '=', rec.code)
             ])
             if count_code:
-                raise UserError(
+                raise ValidationError(
                     _(
-                        "This project code is already exist!. " 
+                        "This project code is already exist!. "
                         "Please recheck tbe analytic account reference."
                     )
                 )
