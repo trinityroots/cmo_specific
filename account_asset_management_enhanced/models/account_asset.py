@@ -94,7 +94,6 @@ class AccountAsset(models.Model):
             AssetLine = self.env['account.asset.line']
             assets = Asset.search([
                 ('number', 'in', num_list),
-                ('state', '=', 'open'),
             ])
             for asset in assets:
                 lines = AssetLine.search([
