@@ -433,6 +433,7 @@
                  <xpath expr="//notebook/page[@string='Other Info']/group[3]" position="after">
                     <group>
                         <field name="description" string="Project Description"/>
+                        <field name="approve_id"/>
                         <field name="date_sale_modify" readonly="1"/>
                     </group>
                  </xpath>
