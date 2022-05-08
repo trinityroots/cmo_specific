@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import fields, models, api, _
 from openerp.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountAsset(models.Model):
@@ -83,6 +86,26 @@ class AccountAsset(models.Model):
         string='Customer Invoice Number',
         readonly=True,
     )
+
+    @api.model
+    def manual_close_asset(self, num_list):
+        if num_list:
+            Asset = self.env['account.asset']
+            AssetLine = self.env['account.asset.line']
+            assets = Asset.search([
+                ('number', 'in', num_list),
+            ])
+            for asset in assets:
+                lines = AssetLine.search([
+                    ('asset_id', '=', asset.id),
+                    ('init_entry', '=', False),
+                    ('move_check', '=', False),
+                ])
+                lines.create_move()
+                asset.state = 'close'
+                self._cr.commit()
+                _logger.warning(asset.number)
+        return True
 
     @api.multi
     def _compute_voucher_number(self):

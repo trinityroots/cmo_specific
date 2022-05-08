@@ -315,10 +315,13 @@ class ProjectProject(models.Model):
     )
     is_group_afreport = fields.Boolean(
         compute='_compute_is_group_afreport',
-    )
+    )]
     approve_id = fields.Many2one(
         'res.users',
-        string='Cost Control Approver',
+        string='Cost Control Approver',]
+    date_sale_modify = fields.Datetime(
+        string='Last Selling Updated',
+        copy=False,]
     )
 
     # @api.model
@@ -340,6 +343,21 @@ class ProjectProject(models.Model):
     #         root.set('edit', 'false')
     #         res['arch'] = etree.tostring(root)
     #     return res
+
+    @api.multi
+    @api.constrains('code')
+    def _check_code(self):
+        for rec in self:
+            count_code = self.env['project.project'].search_count([
+                ('code', '=', rec.code)
+            ])
+            if count_code:
+                raise UserError(
+                    _(
+                        "This project code is already exist!. " 
+                        "Please recheck tbe analytic account reference."
+                    )
+                )
 
     @api.multi
     def action_ignore_so(self):
