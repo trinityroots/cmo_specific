@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # from lxml import etree
 from openerp import fields, models, api, _
-from openerp.exceptions import ValidationError
+from openerp.exceptions import ValidationError, UserError
 from openerp.tools import float_compare
 
 # TODO: foreign key use, idex and ondelete
