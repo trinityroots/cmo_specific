@@ -316,6 +316,10 @@ class ProjectProject(models.Model):
     is_group_afreport = fields.Boolean(
         compute='_compute_is_group_afreport',
     )
+    date_sale_modify = fields.Datetime(
+        string='Last Selling Updated',
+        copy=False,
+    )
 
     # @api.model
     # def fields_view_get(self, view_id=None, view_type='form',
