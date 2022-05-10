@@ -35,3 +35,5 @@ class SaleOrder(models.Model):
                 project_id.write({
                     'date_sale_modify': fields.Datetime.now()
                 })
+            if not order.currency_id:
+                order.currency_id = order.pricelist_id.currency_id.id
