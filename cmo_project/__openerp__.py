@@ -14,6 +14,7 @@
         'cmo_purchase',
         'cmo_account',
         'account_auto_fy_sequence',
+        'cmo_sale_discount_total_enhance'
     ],
     "data": [
         'security/security.xml',
