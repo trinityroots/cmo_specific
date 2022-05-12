@@ -351,12 +351,13 @@ class ProjectProject(models.Model):
     def _check_code(self):
         for rec in self:
             count_code = self.env['project.project'].search_count([
-                ('code', '=', rec.code)
+                ('code', '=', rec.code),
+                ('id', '!=', rec.id),
             ])
             if count_code:
                 raise ValidationError(
                     _(
-                        "This project code is already exist!. "
+                        "This project code is already exist! "
                         "Please recheck tbe analytic account reference."
                     )
                 )
