@@ -33,6 +33,7 @@ class AccountAsset(models.Model):
                         self._cr.commit()
             except Exception:
                 _logger.info(asset.number)
+                continue
 
     @api.model
     def _xls_acquisition_fields(self):
