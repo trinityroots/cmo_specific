@@ -49,13 +49,28 @@ class AccountAsset(models.Model):
                 'TE12151-000396',
             )),
         ])
-        for asset in assets:
+        for asset in asset:
             try:
                 asset.compute_depreciation_board()
                 self._cr.commit()
             except Exception:
                 _logger.info(asset.number)
                 continue
+
+    @api.model
+    def post_move_first_asset(self):
+        moves = self.env['account.move'].search([
+            ('state', '=', 'draft'),
+            ('preriod_id', '=', 371),
+        ])
+        for move in moves:
+            try:
+                move.button_validate()
+                self._cr.commit()
+            except Exception:
+                _logger.info(move.id)
+                continue
+
 
     @api.model
     def _xls_acquisition_fields(self):
