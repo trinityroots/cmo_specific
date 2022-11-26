@@ -36,6 +36,28 @@ class AccountAsset(models.Model):
                 continue
 
     @api.model
+    def compute_first_asset(self):
+        assets = self.env['account.asset'].search([
+            ('state', '=', 'open'),
+            ('number', 'not in', (
+                'TE12181-000180',
+                'TE12151-000159',
+                'TE12151-000029',
+                'TE12151-000678',
+                'TE12161-000002',
+                'TE12151-000010',
+                'TE12151-000396',
+            )),
+        ])
+        for asset in assets:
+            try:
+                asset.compute_depreciation_board()
+                self._cr.commit()
+            except Exception:
+                _logger.info(asset.number)
+                continue
+
+    @api.model
     def _xls_acquisition_fields(self):
         """
         Update list in custom module to add/drop columns or change order
