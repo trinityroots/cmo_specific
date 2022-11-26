@@ -62,6 +62,7 @@ class AccountAsset(models.Model):
         moves = self.env['account.move'].search([
             ('state', '=', 'draft'),
             ('preriod_id', '=', 371),
+            ('id', 'not in', (58102, 58156, 58121)),
         ])
         for move in moves:
             try:
