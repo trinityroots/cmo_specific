@@ -1,12 +1,38 @@
 # -*- coding: utf-8 -*-
 # Copyright 2009-2017 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+import logging
 
 from openerp import api, models
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountAsset(models.Model):
     _inherit = 'account.asset'
+
+    @api.model
+    def post_first_asset(self):
+        assets = self.env['account.asset'].search([
+            ('state', '=', 'open'),
+            ('number', 'not in', (
+                'TE12181-000180',
+                'TE12151-000159',
+                'TE12151-000029',
+                'TE12151-000678',
+                'TE12161-000002',
+                'TE12151-000010',
+                'TE12151-000396',
+            )),
+        ])
+        for asset in assets:
+            try:
+                if len(asset.depreciation_line_ids) == 2:
+                    if asset.depreciation_line_ids[1].type == 'depreciate':
+                        asset.depreciation_line_ids[1].create_move()
+                        self._cr.commit()
+            except Exception:
+                _logger.info(asset.number)
 
     @api.model
     def _xls_acquisition_fields(self):
