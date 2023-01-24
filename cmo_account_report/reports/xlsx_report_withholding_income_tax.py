@@ -155,11 +155,11 @@ class XLSXReportWithholdingIncomeTax(models.TransientModel):
         for line in withholding_tax:
             # Remove duplicate data
             if prev_number == line.get('number'):
-                line['number'] = False
-                line['row_number'] = False
-                line['supplier_ids'] = False
-                line['date_value'] = False
-                line['ref'] = False
+                line['number'] = ''
+                line['row_number'] = ''
+                line['supplier_ids'] = ''
+                line['date_value'] = ''
+                line['ref'] = ''
             else:
                 row_number = row_number + 1
                 line['row_number'] = row_number
