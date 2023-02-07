@@ -2,6 +2,8 @@
 import re
 import os
 import sys
+import logging
+_logger = logging.getLogger(__name__)
 import pandas as pd
 import numpy as np
 import xlrd
@@ -640,7 +642,7 @@ class ExportXlsxTemplate(models.TransientModel):
         except Exception, e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
+            _logger.warning(exc_tb.tb_lineno)
         return all_rc, max_row, tail_fields
 
     @api.model
