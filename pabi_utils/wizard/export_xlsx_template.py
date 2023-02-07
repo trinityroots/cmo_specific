@@ -363,50 +363,55 @@ class ExportXlsxTemplate(models.TransientModel):
 
     @api.model
     def _get_line_vals(self, record, line_field, fields):
-        """ Get values of this field from record set """
-        line_field, max_row = get_line_max(line_field)
-        lines = record[line_field]
-        if max_row > 0 and len(lines) > max_row:
-            raise Exception(
-                _('Records in %s exceed max record allowed!') % line_field)
-        vals = dict([(field, []) for field in fields])
-        # Get field condition & aggre function
-        field_cond_dict = {}
-        aggre_func_dict = {}
-        field_format_dict = {}
-        pair_fields = []  # I.e., ('debit${value and . or .}@{sum}', 'debit')
-        for field in fields:
-            temp_field, eval_cond = get_field_condition(field)
-            temp_field, field_format = get_field_format(temp_field)
-            raw_field, aggre_func = get_field_aggregation(temp_field)
-            # Dict of all special conditions
-            field_cond_dict.update({field: eval_cond})
-            aggre_func_dict.update({field: aggre_func})
-            field_format_dict.update({field: field_format})
-            # --
-            pair_fields.append((field, raw_field))
-        # --
-        for line in lines:
-            for field in pair_fields:  # (field, raw_field)
-                value = self._get_field_data(field[1], line)
-                # Case Eval
-                eval_cond = field_cond_dict[field[0]]
-                if eval_cond:  # Get eval_cond of a raw field
-                    eval_context = {'float_compare': float_compare,
-                                    'time': time,
-                                    'datetime': dt,
-                                    'date': date,
-                                    'value': value,
-                                    'object': line,
-                                    'model': self.env[record._name],
-                                    'env': self.env,
-                                    'context': self._context,
-                                    }
-                    # value = str(eval(eval_cond, eval_context))
-                    # Test removing str(), coz some case, need resulting number
-                    value = eval(eval_cond, eval_context)
+        try:
+            """ Get values of this field from record set """
+            line_field, max_row = get_line_max(line_field)
+            lines = record[line_field]
+            if max_row > 0 and len(lines) > max_row:
+                raise Exception(
+                    _('Records in %s exceed max record allowed!') % line_field)
+            vals = dict([(field, []) for field in fields])
+            # Get field condition & aggre function
+            field_cond_dict = {}
+            aggre_func_dict = {}
+            field_format_dict = {}
+            pair_fields = []  # I.e., ('debit${value and . or .}@{sum}', 'debit')
+            for field in fields:
+                temp_field, eval_cond = get_field_condition(field)
+                temp_field, field_format = get_field_format(temp_field)
+                raw_field, aggre_func = get_field_aggregation(temp_field)
+                # Dict of all special conditions
+                field_cond_dict.update({field: eval_cond})
+                aggre_func_dict.update({field: aggre_func})
+                field_format_dict.update({field: field_format})
                 # --
-                vals[field[0]].append(value)
+                pair_fields.append((field, raw_field))
+            # --
+            for line in lines:
+                for field in pair_fields:  # (field, raw_field)
+                    value = self._get_field_data(field[1], line)
+                    # Case Eval
+                    eval_cond = field_cond_dict[field[0]]
+                    if eval_cond:  # Get eval_cond of a raw field
+                        eval_context = {'float_compare': float_compare,
+                                        'time': time,
+                                        'datetime': dt,
+                                        'date': date,
+                                        'value': value,
+                                        'object': line,
+                                        'model': self.env[record._name],
+                                        'env': self.env,
+                                        'context': self._context,
+                                        }
+                        # value = str(eval(eval_cond, eval_context))
+                        # Test removing str(), coz some case, need resulting number
+                        value = eval(eval_cond, eval_context)
+                    # --
+                    vals[field[0]].append(value)
+        except Exception, e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            _logger.warning(exc_tb.tb_lineno)
         return (vals, aggre_func_dict, field_format_dict)
 
     @api.model
@@ -507,145 +512,140 @@ class ExportXlsxTemplate(models.TransientModel):
     def _fill_lines(self, ws, st, record, groupbys):
         all_rc = []
         max_row = 0
-        try:
-            line_fields = ws.keys()
-            for x in ('_HEAD_', '_TAIL_', '_GROUPBY_', '_BI_'):
-                for line_field in line_fields:
-                    if x in line_field:
-                        line_fields.remove(line_field)
-            tail_fields = {}  # Keep tail cell, to be used in _TAIL_
+        line_fields = ws.keys()
+        for x in ('_HEAD_', '_TAIL_', '_GROUPBY_', '_BI_'):
             for line_field in line_fields:
+                if x in line_field:
+                    line_fields.remove(line_field)
+        tail_fields = {}  # Keep tail cell, to be used in _TAIL_
+        for line_field in line_fields:
 
-                subtotals = {'rows': [], 'subtotals': {},
-                            'grandtotals': {}, 'formats': {}}
-                # ====== GROUP BY =========
-                groupby_keys = filter(lambda l: '_GROUPBY_%s' % line_field in l,
-                                    groupbys.keys())
-                if groupby_keys:
-                    groupby = get_groupby(groupby_keys[0])
-                    groupby_dict = groupbys[groupby_keys[0]]
-                    # If value in groupby changes, mark the row index
-                    i = 0
-                    old_val = []
-                    for line in record[line_field]:
-                        val = []
-                        for key in groupby:
-                            val.append(line[key])
-                        if i > 0 and val != old_val:
-                            subtotals['rows'].append(i)
-                        old_val = val
-                        i += 1
-                    subtotals['rows'].append(i)
-                    # For the aggregrate column
-                    for cell in groupby_dict.keys():
-                        col, row = split_row_col(cell)
-                        first_row = row
-                        cell_format = groupby_dict[cell]
-                        _, grp_func = get_field_aggregation(cell_format)
-                        _, grp_format = get_field_format(cell_format)
+            subtotals = {'rows': [], 'subtotals': {},
+                        'grandtotals': {}, 'formats': {}}
+            # ====== GROUP BY =========
+            groupby_keys = filter(lambda l: '_GROUPBY_%s' % line_field in l,
+                                groupbys.keys())
+            if groupby_keys:
+                groupby = get_groupby(groupby_keys[0])
+                groupby_dict = groupbys[groupby_keys[0]]
+                # If value in groupby changes, mark the row index
+                i = 0
+                old_val = []
+                for line in record[line_field]:
+                    val = []
+                    for key in groupby:
+                        val.append(line[key])
+                    if i > 0 and val != old_val:
+                        subtotals['rows'].append(i)
+                    old_val = val
+                    i += 1
+                subtotals['rows'].append(i)
+                # For the aggregrate column
+                for cell in groupby_dict.keys():
+                    col, row = split_row_col(cell)
+                    first_row = row
+                    cell_format = groupby_dict[cell]
+                    _, grp_func = get_field_aggregation(cell_format)
+                    _, grp_format = get_field_format(cell_format)
 
-                        cell_field = ws[line_field][cell]
-                        subtotals['subtotals'].update({cell_field: []})
-                        subtotals['formats'].update({cell_field: []})
-                        grandtotals = []
-                        if subtotals['rows']:
-                            subtotals['formats'][cell_field] = grp_format
-                        for i in subtotals['rows']:
-                            from_cell = '%s%s' % (col, row)
-                            to_cell = '%s%s' % (col, first_row+i-1)
-                            range_cell = '%s:%s' % (from_cell, to_cell)
-                            _logger.warning(cell_field)
-                            _logger.warning(grp_func)
-                            _logger.warning(range_cell)
-                            subtotals['subtotals'][cell_field].append(
-                                grp_func and
-                                '=%s(%s)' % (grp_func, range_cell) or
-                                '')
-                            grandtotals.append(range_cell)
-                            first_row += 1
-                            row = first_row + i
-                        if grandtotals:
-                            subtotals['grandtotals'][cell_field] = \
-                                '=%s(%s)' % (grp_func, ','.join(grandtotals))
-                    # --
+                    cell_field = ws[line_field][cell]
+                    subtotals['subtotals'].update({cell_field: []})
+                    subtotals['formats'].update({cell_field: []})
+                    grandtotals = []
+                    if subtotals['rows']:
+                        subtotals['formats'][cell_field] = grp_format
+                    for i in subtotals['rows']:
+                        from_cell = '%s%s' % (col, row)
+                        to_cell = '%s%s' % (col, first_row+i-1)
+                        range_cell = '%s:%s' % (from_cell, to_cell)
+                        _logger.warning(cell_field)
+                        _logger.warning(grp_func)
+                        _logger.warning(range_cell)
+                        subtotals['subtotals'][cell_field].append(
+                            grp_func and
+                            '=%s(%s)' % (grp_func, range_cell) or
+                            '')
+                        grandtotals.append(range_cell)
+                        first_row += 1
+                        row = first_row + i
+                    if grandtotals:
+                        subtotals['grandtotals'][cell_field] = \
+                            '=%s(%s)' % (grp_func, ','.join(grandtotals))
+                # --
 
-                sb_rows = [i + v for i, v in enumerate(subtotals.get('rows', []))]
-                sb_subtotals = subtotals.get('subtotals', {})
-                sb_grandtotals = subtotals.get('grandtotals', {})
-                sb_formats = subtotals.get('formats', {})
+            sb_rows = [i + v for i, v in enumerate(subtotals.get('rows', []))]
+            sb_subtotals = subtotals.get('subtotals', {})
+            sb_grandtotals = subtotals.get('grandtotals', {})
+            sb_formats = subtotals.get('formats', {})
 
-                fields = ws.get(line_field, {}).values()
-                all_rc += ws.get(line_field, {}).keys()
-                (vals, func, field_format) = \
-                    self._get_line_vals(record, line_field, fields)
-                # value with '\\skiprow' signify line skipping
-                vals = add_row_skips(vals)
+            fields = ws.get(line_field, {}).values()
+            all_rc += ws.get(line_field, {}).keys()
+            (vals, func, field_format) = \
+                self._get_line_vals(record, line_field, fields)
+            # value with '\\skiprow' signify line skipping
+            vals = add_row_skips(vals)
 
-                for rc, field in ws.get(line_field, {}).iteritems():
-                    tail_fields[rc] = False
-                    col, row = split_row_col(rc)  # starting point
-                    i = 0
-                    new_row = 0
-                    new_rc = rc
-                    for val in vals[field]:
-                        row_vals = isinstance(val, basestring) and \
-                            val.split('\\skiprow') or [val]
-                        for row_val in row_vals:
-                            new_row = row + i
-                            new_rc = '%s%s' % (col, new_row)
-                            row_val = adjust_cell_formula(row_val, i)
-                            if row_val not in ('None', None):
-                                st[new_rc] = str_to_number(row_val)
-                            if field_format.get(field, False):
-                                fill_cell_format(st[new_rc],
-                                                field_format[field])
-                            # ====== GROUP BY =========
-                            # Sub Total
-                            for j in sb_rows:
-                                if i == j-1:
-                                    new_row = row + i
-                                    if sb_subtotals.get(field, False):
-                                        new_rc = '%s%s' % (col, new_row + 1)
-                                        row_val = sb_subtotals[field][0]
-                                        st[new_rc] = str_to_number(row_val)
-                                        sb_subtotals[field].pop(0)
-                                    if sb_formats.get(field, False):
-                                        new_rc = '%s%s' % (col, new_row + 1)
-                                        grp_format = sb_formats[field]
-                                        if grp_format:
-                                            fill_cell_format(st[new_rc],
-                                                            grp_format)
-                                    i += 1
-
-                            # ---------------------------
-                            if new_row > max_row:
-                                max_row = new_row
-                            i += 1
-
-                    # Grand Total
-                    if sb_grandtotals.get(field, False):
-                        new_rc = '%s%s' % (col, new_row + 2)
-                        row_val = sb_grandtotals[field]
-                        st[new_rc] = str_to_number(row_val)
-                    if sb_formats.get(field, False):
-                        new_rc = '%s%s' % (col, new_row + 2)
-                        grp_format = sb_formats[field]
-                        if grp_format:
+            for rc, field in ws.get(line_field, {}).iteritems():
+                tail_fields[rc] = False
+                col, row = split_row_col(rc)  # starting point
+                i = 0
+                new_row = 0
+                new_rc = rc
+                for val in vals[field]:
+                    row_vals = isinstance(val, basestring) and \
+                        val.split('\\skiprow') or [val]
+                    for row_val in row_vals:
+                        new_row = row + i
+                        new_rc = '%s%s' % (col, new_row)
+                        row_val = adjust_cell_formula(row_val, i)
+                        if row_val not in ('None', None):
+                            st[new_rc] = str_to_number(row_val)
+                        if field_format.get(field, False):
                             fill_cell_format(st[new_rc],
-                                            grp_format)
+                                            field_format[field])
+                        # ====== GROUP BY =========
+                        # Sub Total
+                        for j in sb_rows:
+                            if i == j-1:
+                                new_row = row + i
+                                if sb_subtotals.get(field, False):
+                                    new_rc = '%s%s' % (col, new_row + 1)
+                                    row_val = sb_subtotals[field][0]
+                                    st[new_rc] = str_to_number(row_val)
+                                    sb_subtotals[field].pop(0)
+                                if sb_formats.get(field, False):
+                                    new_rc = '%s%s' % (col, new_row + 1)
+                                    grp_format = sb_formats[field]
+                                    if grp_format:
+                                        fill_cell_format(st[new_rc],
+                                                        grp_format)
+                                i += 1
 
-                    # Add footer line if at least one field have func
-                    f = func.get(field, False)
-                    if f:
-                        new_row += 1
-                        f_rc = '%s%s' % (col, new_row)
-                        st[f_rc] = '=%s(%s:%s)' % (f, rc, new_rc)
+                        # ---------------------------
+                        if new_row > max_row:
+                            max_row = new_row
+                        i += 1
 
-                    tail_fields[rc] = new_rc   # Last row field
-        except Exception, e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            _logger.warning(exc_tb.tb_lineno)
+                # Grand Total
+                if sb_grandtotals.get(field, False):
+                    new_rc = '%s%s' % (col, new_row + 2)
+                    row_val = sb_grandtotals[field]
+                    st[new_rc] = str_to_number(row_val)
+                if sb_formats.get(field, False):
+                    new_rc = '%s%s' % (col, new_row + 2)
+                    grp_format = sb_formats[field]
+                    if grp_format:
+                        fill_cell_format(st[new_rc],
+                                        grp_format)
+
+                # Add footer line if at least one field have func
+                f = func.get(field, False)
+                if f:
+                    new_row += 1
+                    f_rc = '%s%s' % (col, new_row)
+                    st[f_rc] = '=%s(%s:%s)' % (f, rc, new_rc)
+
+                tail_fields[rc] = new_rc   # Last row field
         return all_rc, max_row, tail_fields
 
     @api.model
