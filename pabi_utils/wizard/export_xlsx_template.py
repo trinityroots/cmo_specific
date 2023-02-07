@@ -554,10 +554,11 @@ class ExportXlsxTemplate(models.TransientModel):
                             from_cell = '%s%s' % (col, row)
                             to_cell = '%s%s' % (col, first_row+i-1)
                             range_cell = '%s:%s' % (from_cell, to_cell)
-                            subtotals['subtotals'][cell_field].append(
-                                grp_func and
-                                '=%s(%s)' % (grp_func, range_cell) or
-                                '')
+                            if grp_func:
+                                subtotals['subtotals'][cell_field].append(
+                                    grp_func and
+                                    '=%s(%s)' % (grp_func, range_cell) or
+                                    '')
                             grandtotals.append(range_cell)
                             first_row += 1
                             row = first_row + i
