@@ -405,6 +405,8 @@ class ExportXlsxTemplate(models.TransientModel):
                                         }
                         # value = str(eval(eval_cond, eval_context))
                         # Test removing str(), coz some case, need resulting number
+                        _logger.warning(eval_cond)
+                        _logger.warning(eval_context)
                         value = eval(eval_cond, eval_context)
                     # --
                     vals[field[0]].append(value)
