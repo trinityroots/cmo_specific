@@ -122,6 +122,7 @@
                   <field name="actual_po" groups="project.group_project_admin,project.group_project_manager"/>
                   <field name="expense" string="Expense" groups="project.group_project_admin,project.group_project_manager"/>
                   <field name="state" string="Project Status"/>
+                  <field name="write_date"/>
                   <field name="close_reason"/>
               </xpath>
             </field>
