@@ -115,7 +115,7 @@
 			<field name="arch" type="xml">
                 <xpath expr="//sheet/group" position="before">
                     <p attrs="{'invisible': [('pay_to', '!=', 'pettycash')]}" style="color:red;">
-                        <label string="Limit Petty Cash must not more than 1,000 Bath"/>
+                        <label string="Limit Petty Cash must not more than 2,000 Bath"/>
                     </p>
                 </xpath>
                 <xpath expr="//tree[@string='Expense Lines']/field[@name='tax_ids']" position="after">
