@@ -160,7 +160,8 @@
     )*100)/100).toString()]]></variableExpression>
 	</variable>
 	<variable name="date_hours" class="java.lang.String">
-		<variableExpression><![CDATA[$F{create_date_specific}.getHours() + 7]]></variableExpression>
+		<variableExpression><![CDATA[$F{create_date_specific}.getHours()+7 > 24? $F{create_date_specific}.getHours()+7-24 :
+$F{create_date_specific}.getHours()+7]]></variableExpression>
 	</variable>
 	<variable name="date_minute" class="java.lang.String">
 		<variableExpression><![CDATA[$F{create_date_specific}.getMinutes() < 10?
