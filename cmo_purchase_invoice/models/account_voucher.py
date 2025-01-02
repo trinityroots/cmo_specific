@@ -22,22 +22,10 @@ class AccountVoucher(models.Model):
                 po = self.env['purchase.order'].search([('invoice_ids', 'in', move_line.invoice.ids)])
                 if po and po.state != 'approved':
                     po_approved.append(po.name)
-                print('\n po',po)
-                # open_invoices = self.invoice_ids.filtered(lambda l: l.state in ['open', 'paid'])
         if len(po_approved) > 0:
             raise UserError(_('You can not Payment to reconcile invoice  '
                               'for purchase order that not Purchase Confirmed. %s' 
                               % tuple(set(po_approved))))
-        # for voucher in self:
-        #     # auto reconcile special account, get all releated move_lines
-        #     v_mlines = voucher.mapped('move_id.line_id')
-        #     i_mlines = voucher.mapped('line_ids.invoice_id.move_id.line_id')
-        #     tt_mlines = \
-        #         voucher.mapped('recognize_vat_move_id.line_id')
-        #     print tt_mlines
-        #     mlines = v_mlines | i_mlines | tt_mlines
-        #     mlines.reconcile_special_account()
-        a=a
-        res = super(AccountVoucher, self).proforma_voucher()
 
-        return res
+
+        return super(AccountVoucher, self).proforma_voucher()
