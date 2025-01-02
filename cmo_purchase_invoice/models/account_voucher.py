@@ -17,8 +17,6 @@ class AccountVoucher(models.Model):
                 move_line = self.env['account.move.line'].search(
                     [('id', '=', move_id.id)]
                 )
-                print('\n move_line',move_line)
-                print('\n move_line.invoice',move_line.invoice, move_line.invoice.name)
                 po = self.env['purchase.order'].search([('invoice_ids', 'in', move_line.invoice.ids)])
                 if po and po.state != 'approved':
                     po_approved.append(po.name)
