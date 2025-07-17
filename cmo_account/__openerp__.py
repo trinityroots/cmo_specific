@@ -2,7 +2,7 @@
 {
     "name": "CMO :: Account Extension",
     "summary": "",
-    "version": "1.0",
+    "version": "1.1",
     "category": "Accounting & Finance",
     "description": """
     """,
@@ -21,6 +21,7 @@
     ],
     "data": [
         'data/report_data.xml',
+        'data/ir_sequence_data.xml',
         'data/security.xml',
         'wizard/account_tax_detail_view.xml',
         'wizard/edit_desc.xml',

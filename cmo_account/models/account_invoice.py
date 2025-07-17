@@ -60,6 +60,11 @@ class AccountInvoice(models.Model):
         copy=False,
         track_visibility='onchange',
     )
+    new_preprint_number = fields.Char(
+        string='New Preprint Number',
+        copy=False,
+        help='Auto-generated when invoice is opened'
+    )
 
     @api.model
     def default_get(self, fields):
@@ -131,9 +136,11 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def invoice_validate(self):
-        # result = super(AccountInvoice, self.sudo()).invoice_validate()
         result = super(AccountInvoice, self).invoice_validate()
         for invoice in self:
+            if invoice.state == 'open' and not invoice.new_preprint_number:
+                sequence = self.env['ir.sequence'].next_by_code('account.invoice.new.preprint') or '00001'
+                invoice.new_preprint_number = sequence
             invoice.write({'validate_user_id': self.env.user.id,
                            'validate_date': fields.Datetime.now()})
         return result
