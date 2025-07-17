@@ -62,7 +62,6 @@ class AccountInvoice(models.Model):
     )
     new_preprint_number = fields.Char(
         string='New Preprint Number',
-        readonly=True,
         copy=False,
         help='Auto-generated when invoice is opened'
     )
