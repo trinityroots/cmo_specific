@@ -51,6 +51,7 @@
         </xpath>
         <xpath expr="//form/sheet/group/group[1]" position="inside">
           <field name="number_preprint" required="True"/>
+          <field name="new_preprint_number" readonly="1"/>
         </xpath>
       </field>
     </record>
