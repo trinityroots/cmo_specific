@@ -132,7 +132,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[(new java.text.SimpleDateFormat("dd/MM/yyyy",new Locale("en", "US"))).format($F{date_invoice})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="25" y="130" width="321" height="63" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="25" y="130" width="421" height="63" isPrintWhenDetailOverflows="true"/>
 				<textElement lineSpacing="1_1_2">
 					<font size="12" pdfFontName="Garuda.ttf" pdfEncoding="Identity-H"/>
 				</textElement>
